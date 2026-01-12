@@ -36,7 +36,7 @@ void	file_to_arr(t_w *new_w, char *s, int y)
 	}
 	i = 0;
 	buff_splt = ft_strsplit(s, ' ');
-	while (buff_splt[x] != '\0')
+	while (buff_splt[x] != NULL)
 		x++;
 	while (i < x)
 	{

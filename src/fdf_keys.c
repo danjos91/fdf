@@ -77,5 +77,5 @@ int			fdf_keys(int key, void *param)
 	}
 	fdf_more_keys(key, new_w);
 	fdf_redraw(new_w);
-	return ((int)param);
+	return (0);
 }

@@ -1,0 +1,72 @@
+# Executables
+fdf
+*.out
+*.exe
+
+# Object files
+*.o
+*.a
+*.so
+*.dylib
+
+# Build artifacts
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Library build files
+libft/*.o
+libft/*.a
+mlx_linux/*.o
+mlx_linux/*.a
+mlx_linux/libmlx*.a
+mlx_linux/Makefile.gen
+mlx_linux/obj/
+mlx_linux/test/mlx-test
+
+# Source object files
+src/*.o
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.code-workspace
+
+# Editor backup files
+*~
+*.bak
+*.tmp
+
+# Debug files
+*.dSYM/
+vgcore.*
+core
+core.*
+
+# Compilation artifacts
+*.gcda
+*.gcno
+*.gcov
+
+# Temporary files
+*.log
+*.cache
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Test files (optional - uncomment if you want to ignore test outputs)
+# test_output/
+# *.test
+

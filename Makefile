@@ -12,14 +12,14 @@
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -I./mlx_linux
 
 NAME = fdf
 
 HEADERS = fdf.h
 
-LIBS = -L./Libft/ -lft\
-	-lmlx -framework OpenGL -framework AppKit
+LIBS = -L./libft/ -lft\
+	-L./mlx_linux -lmlx -lXext -lX11 -lm
 
 OBJS = $(SRCS:.c=.o)
 
@@ -41,15 +41,23 @@ $(NAME):$(OBJS) | lib
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -I . -o $@ -c $<
 
-lib:
-	make -C./Libft
+lib: ./mlx_linux/libmlx.a
+	make -C ./libft
+
+./mlx_linux/libmlx.a:
+	@if [ ! -f ./mlx_linux/Makefile.gen ]; then \
+		cd ./mlx_linux && ./configure; \
+	fi
+	@cd ./mlx_linux && make -f Makefile.gen
 
 clean:
-	make clean -C./Libft
+	make clean -C ./libft
+	make clean -C ./mlx_linux 2>/dev/null || true
 	rm -rf $(OBJS)
 
 fclean: clean
-	make fclean -C./Libft
+	make fclean -C ./libft
+	make clean -C ./mlx_linux 2>/dev/null || true
 	rm -f $(NAME)
 
 re: fclean all

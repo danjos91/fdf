@@ -73,7 +73,7 @@ int			fdf_dw_ln(t_w *new_w, int p1, int p2)
 
 int			fdf_draw(t_w *new_w)
 {
-	mlx_hook(new_w->win_p, 2, 0, fdf_keys, new_w);
+	mlx_hook(new_w->win_p, 2, (1L<<0), fdf_keys, new_w);
 	fdf_redraw(new_w);
 	mlx_loop(new_w->mlx_p);
 	return (0);

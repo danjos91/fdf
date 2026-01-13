@@ -17,42 +17,45 @@
 **    int fdf_keys(int key, void *param)
 **    Function which allow users to control FdF with keyboard
 ** numbers  : keys
-** 123,124 : <,>
-** 38, 40  : j,k
-** 32, 34  : u,i
-** 126,125 : ^,v
-** 78,69   : +,-
-** 12, 14  : q, z
-** 2 , 0   : d, a
-** 13, 1   : w, s
-** 49      : space
-** 8       : c
-** 53      : esc
+** 0xff51,0xff53 : Left,Right arrows
+** 0x006a,0x006b : j,k
+** 0x0075,0x0069 : u,i
+** 0xff52,0xff54 : Up,Down arrows
+** 0x002b,0x003d,0x002d : +,=,-
+** 0x0071,0x0065 : q, e
+** 0x0064,0x0061 : d, a
+** 0x0077,0x0073 : w, s
+** 0x0020 : space
+** 0x0063,0x0076 : c, v
+** 0xff1b : esc
 ** **************************************************************************
 */
 
 static void	fdf_more_keys(int key, t_w *new_w)
 {
-	if (key == 126 || (key == 125 && new_w->m > 1))
-		new_w->m = key == 126 ? (new_w->m + 1) : (new_w->m - 1);
-	if (key == 78 || key == 69)
-		new_w->mv_z = key == 78 ? new_w->mv_z - 5 : new_w->mv_z + 5;
-	if (key == 12 || key == 14)
-		new_w->mv_z2 = key == 12 ? new_w->mv_z2 + 10 : new_w->mv_z2 - 10;
-	if (key == 2 || key == 0)
-		new_w->mv_x = key == 2 ? new_w->mv_x + 10 : new_w->mv_x - 10;
-	if (key == 13 || key == 1)
-		new_w->mv_y = key == 13 ? new_w->mv_y - 10 : new_w->mv_y + 10;
-	if (key == 49)
+	if (key == 0xff52 || (key == 0xff54 && new_w->m > 1))
+		new_w->m = key == 0xff52 ? (new_w->m + 1) : (new_w->m - 1);
+	if (key == 0x002b || key == 0x003d || key == 0x002d)
+		new_w->mv_z = key == 0x002d ? new_w->mv_z + 5 : new_w->mv_z - 5;
+	if (key == 0x0071 || key == 0x0065)
+		new_w->mv_z2 = key == 0x0071 ? new_w->mv_z2 + 10 : new_w->mv_z2 - 10;
+	if (key == 0x0064 || key == 0x0061)
+		new_w->mv_x = key == 0x0064 ? new_w->mv_x + 10 : new_w->mv_x - 10;
+	if (key == 0x0077 || key == 0x0073)
+		new_w->mv_y = key == 0x0077 ? new_w->mv_y - 10 : new_w->mv_y + 10;
+	if (key == 0x0020)
 		fdf_initials(new_w);
-	if (key == 8)
-		fdf_color_change(new_w);
-	if (key == 9)
+	if (key == 0x0063 || key == 0x0076)
 	{
-		new_w->color_style = (new_w->color_style + 1) % 10;
-		fdf_change_color(new_w);
+		if (key == 0x0063)
+			fdf_color_change(new_w);
+		else
+		{
+			new_w->color_style = (new_w->color_style + 1) % 10;
+			fdf_change_color(new_w);
+		}
 	}
-	if (key == 53)
+	if (key == 0xff1b)
 		exit(0);
 }
 
@@ -63,19 +66,19 @@ int			fdf_keys(int key, void *param)
 
 	a = 5 * (M_PI / 180);
 	new_w = (t_w *)param;
-	if (key == 123 || key == 124)
-		new_w->angle = key == 123 ? (new_w->angle + a) : (new_w->angle - a);
-	if (key == 38 || key == 40)
+	if (key == 0xff51 || key == 0xff53)
+		new_w->angle = key == 0xff51 ? (new_w->angle + a) : (new_w->angle - a);
+	if (key == 0x006a || key == 0x006b)
 	{
-		new_w->angle_x = key == 38 ? (new_w->angle_x + a) :\
+		new_w->angle_x = key == 0x006a ? (new_w->angle_x + a) :\
 			(new_w->angle_x - a);
 	}
-	if (key == 32 || key == 34)
+	if (key == 0x0075 || key == 0x0069)
 	{
-		new_w->angle_y = key == 32 ? (new_w->angle_y + a) : \
+		new_w->angle_y = key == 0x0075 ? (new_w->angle_y + a) : \
 			(new_w->angle_y - a);
 	}
 	fdf_more_keys(key, new_w);
 	fdf_redraw(new_w);
-	return ((int)param);
+	return (0);
 }

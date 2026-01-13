@@ -39,7 +39,7 @@ sudo apt-get install gcc make xorg libxext-dev libbsd-dev
 
 ### 1. Clone the repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/danjos91/fdf
 cd fdf
 ```
 
@@ -118,8 +118,8 @@ fdf/
 
 ## Authors
 
-- **drafe** - [@drafe](https://github.com/drafe)
-- **nshelly** - [@nshelly](https://github.com/nshelly)
+- **lokswin** - [@lokswin](https://github.com/lokswin)
+- **danjos91** - [@danjos91](https://github.com/danjos91) (nshelly at Ecole42)
 
 ## License
 

@@ -21,12 +21,12 @@
 ** 0x006a,0x006b : j,k
 ** 0x0075,0x0069 : u,i
 ** 0xff52,0xff54 : Up,Down arrows
-** 0x002b,0x002d : +,-
-** 0x0071,0x007a : q, z
+** 0x002b,0x003d,0x002d : +,=,-
+** 0x0071,0x0065 : q, e
 ** 0x0064,0x0061 : d, a
 ** 0x0077,0x0073 : w, s
 ** 0x0020 : space
-** 0x0063 : c
+** 0x0063,0x0076 : c, v
 ** 0xff1b : esc
 ** **************************************************************************
 */
@@ -35,9 +35,9 @@ static void	fdf_more_keys(int key, t_w *new_w)
 {
 	if (key == 0xff52 || (key == 0xff54 && new_w->m > 1))
 		new_w->m = key == 0xff52 ? (new_w->m + 1) : (new_w->m - 1);
-	if (key == 0x002b || key == 0x002d)
-		new_w->mv_z = key == 0x002b ? new_w->mv_z - 5 : new_w->mv_z + 5;
-	if (key == 0x0071 || key == 0x007a)
+	if (key == 0x002b || key == 0x003d || key == 0x002d)
+		new_w->mv_z = key == 0x002d ? new_w->mv_z + 5 : new_w->mv_z - 5;
+	if (key == 0x0071 || key == 0x0065)
 		new_w->mv_z2 = key == 0x0071 ? new_w->mv_z2 + 10 : new_w->mv_z2 - 10;
 	if (key == 0x0064 || key == 0x0061)
 		new_w->mv_x = key == 0x0064 ? new_w->mv_x + 10 : new_w->mv_x - 10;
@@ -45,12 +45,15 @@ static void	fdf_more_keys(int key, t_w *new_w)
 		new_w->mv_y = key == 0x0077 ? new_w->mv_y - 10 : new_w->mv_y + 10;
 	if (key == 0x0020)
 		fdf_initials(new_w);
-	if (key == 0x0063)
-		fdf_color_change(new_w);
-	if (key == 9)
+	if (key == 0x0063 || key == 0x0076)
 	{
-		new_w->color_style = (new_w->color_style + 1) % 10;
-		fdf_change_color(new_w);
+		if (key == 0x0063)
+			fdf_color_change(new_w);
+		else
+		{
+			new_w->color_style = (new_w->color_style + 1) % 10;
+			fdf_change_color(new_w);
+		}
 	}
 	if (key == 0xff1b)
 		exit(0);
